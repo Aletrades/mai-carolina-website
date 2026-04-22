@@ -1279,7 +1279,7 @@ body.intro-active {
   .hero-social { justify-content: center; gap: 10px; }
   .hero-social a { width: 34px; height: 34px; }
   .hero-right { width: 100%; display: flex; justify-content: center; }
-  .hero-photo { max-height: 240px; max-width: 62%; }
+  .hero-photo { max-height: 420px; max-width: 88%; }
   .hero-photo-shape { display: none; }
   .photo-badge { display: none; }
   .hero-house-deco { display: none; }
