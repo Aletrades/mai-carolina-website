@@ -1278,8 +1278,8 @@ body.intro-active {
   .hero-actions .btn { flex: 1; min-width: 0; padding: 10px 12px; font-size: 0.78rem; }
   .hero-social { justify-content: center; gap: 10px; }
   .hero-social a { width: 32px; height: 32px; }
-  .hero-right { width: 100%; display: flex; justify-content: center; margin-bottom: -8px; }
-  .hero-photo { max-height: 320px; max-width: 72%; }
+  .hero-right { width: 100%; display: flex; justify-content: center; margin-bottom: -10px; }
+  .hero-photo { max-height: 400px; max-width: 84%; }
   .hero-photo-shape { display: none; }
   .photo-badge { display: none; }
   .hero-house-deco { display: none; }

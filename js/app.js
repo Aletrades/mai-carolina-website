@@ -290,8 +290,12 @@ function initHero() {
 
 // ---- Section headings split + scroll reveal ----
 function initHeadingsReveal() {
+  // Skip split-text on mobile — renders incorrectly on some iOS WebKit
+  // versions (letters appear duplicated during the staggered reveal)
+  if (window.innerWidth <= 768) return;
+
   const headings = document.querySelectorAll(
-    ".about-text h2, .services-inner h2, .process-inner h2, .testimonials-inner h2, .free-guide h2, .contact-info h2, .closing h2"
+    ".about-text h2, .services-inner h2, .process-inner h2, .testimonials-inner h2, .contact-info h2, .closing h2"
   );
   headings.forEach((h) => {
     const chars = splitHtmlPreserving(h);
