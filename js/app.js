@@ -15,23 +15,22 @@ function initIntroOverlay() {
   const overlay = document.getElementById("intro-overlay");
   if (!overlay) return;
 
-  // Already seen this session → remove immediately, let normal loader run
-  if (sessionStorage.getItem("introSeen") === "1") {
-    overlay.remove();
-    return;
-  }
-
-  // Intro is showing — kill the static loader (intro replaces it)
+  // Kill the static loader — intro replaces it
   document.getElementById("loader")?.remove();
 
   const video = document.getElementById("intro-video");
   const tagline = overlay.querySelector(".intro-tagline");
+  const loading = document.getElementById("intro-loading");
+  const tapplay = document.getElementById("intro-tapplay");
+
+  // Belt-and-suspenders: ensure muted is set before play() is called (required for iOS autoplay)
+  video.muted = true;
+  video.defaultMuted = true;
 
   let finished = false;
   const finish = () => {
     if (finished) return;
     finished = true;
-    sessionStorage.setItem("introSeen", "1");
     gsap.to(overlay, {
       opacity: 0,
       duration: 0.8,
@@ -40,7 +39,7 @@ function initIntroOverlay() {
     });
   };
 
-  // Show tagline for the last ~3 seconds of the 7s clip (Jackson Bridge skyline hold)
+  // Tagline appears during final ~3s of the 7s clip
   let taglineShown = false;
   video.addEventListener("timeupdate", () => {
     if (!taglineShown && video.currentTime >= 4) {
@@ -52,25 +51,51 @@ function initIntroOverlay() {
     }
   });
 
-  // End of video → fade overlay out
   video.addEventListener("ended", finish);
 
-  // Skip handlers
+  // Skip handlers (only fire after video has started — no accidental skip during buffer)
+  let playing = false;
+  const skip = () => { if (playing) finish(); };
   overlay.querySelector(".intro-skip")?.addEventListener("click", finish);
-  const skipOnScroll = () => finish();
-  window.addEventListener("wheel", skipOnScroll, { passive: true, once: true });
-  window.addEventListener("touchmove", skipOnScroll, { passive: true, once: true });
+  window.addEventListener("wheel", skip, { passive: true });
+  window.addEventListener("touchmove", skip, { passive: true });
 
-  // Nudge autoplay on iOS
-  video.play().catch(() => {
-    setTimeout(() => video.play().catch(() => {}), 400);
-  });
+  // Wait until the video can play through without re-buffering, THEN reveal + play
+  const startPlayback = () => {
+    loading?.classList.add("hidden");
+    video.classList.add("ready");
+    playing = true;
+    video.play().catch(() => {
+      // Autoplay blocked — show tap-to-play fallback
+      tapplay.hidden = false;
+      tapplay.querySelector(".intro-tapplay-btn").addEventListener("click", () => {
+        tapplay.hidden = true;
+        video.play().then(() => { playing = true; }).catch(finish);
+      }, { once: true });
+    });
+  };
 
-  // Safety: if video hasn't loaded after 6s, bail gracefully
-  const safety = setTimeout(() => {
-    if (video.readyState < 2) finish();
-  }, 6000);
-  video.addEventListener("loadeddata", () => clearTimeout(safety));
+  // Use canplaythrough for smoothest playback (video is fully buffered)
+  let started = false;
+  const onReady = () => {
+    if (started) return;
+    started = true;
+    startPlayback();
+  };
+  video.addEventListener("canplaythrough", onReady, { once: true });
+
+  // Fallback: if canplaythrough hasn't fired in 2s but we have enough data to play, just start
+  setTimeout(() => {
+    if (!started && video.readyState >= 3) onReady();
+  }, 2000);
+
+  // Safety bail: 7s with no playable data at all → skip to hero
+  setTimeout(() => {
+    if (!started && video.readyState < 2) finish();
+  }, 7000);
+
+  // Nudge: ensure the network request actually fires for the video
+  video.load();
 }
 
 // ---- Lenis Smooth Scroll ----

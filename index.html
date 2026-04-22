@@ -12,12 +12,26 @@
 </head>
 <body>
 
-  <!-- Intro Overlay (autoplay on first visit per session) -->
+  <!-- Intro Overlay (plays on every visit) -->
   <div id="intro-overlay" class="intro-overlay">
-    <video id="intro-video" class="intro-video" muted playsinline autoplay preload="auto" poster="video/intro-poster.jpg">
+    <video id="intro-video" class="intro-video"
+           muted
+           playsinline
+           webkit-playsinline="true"
+           autoplay
+           preload="auto"
+           disablepictureinpicture
+           x5-playsinline="true"
+           poster="video/intro-poster.jpg">
       <source src="video/intro.mp4" type="video/mp4">
     </video>
     <div class="intro-bottom-fade"></div>
+    <div class="intro-loading" id="intro-loading">
+      <span class="intro-loading-spinner"></span>
+    </div>
+    <div class="intro-tapplay" id="intro-tapplay" hidden>
+      <button class="intro-tapplay-btn" type="button">▶ Ver Intro</button>
+    </div>
     <div class="intro-tagline">
       <span class="intro-tagline-eyebrow">Mai Carolina · Realtor®</span>
       <h1 class="intro-tagline-text">Tu Casa Ideal<br>Te Espera en <em>Georgia</em></h1>
