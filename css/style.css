@@ -324,9 +324,10 @@ body.intro-active {
 /* ---- HERO ---- */
 .hero-wrapper {
   background:
-    radial-gradient(ellipse at 15% 10%, rgba(244, 184, 96, 0.10), transparent 55%),
-    radial-gradient(ellipse at 85% 100%, rgba(34, 211, 238, 0.10), transparent 60%),
-    var(--bg);
+    radial-gradient(ellipse at 80% 15%, rgba(244, 184, 96, 0.22), transparent 55%),
+    radial-gradient(ellipse at 15% 85%, rgba(217, 127, 63, 0.14), transparent 60%),
+    radial-gradient(ellipse at 100% 100%, rgba(34, 211, 238, 0.06), transparent 70%),
+    linear-gradient(180deg, #0A0E1A 0%, #1A1410 100%);
   position: relative;
   overflow: hidden;
 }
@@ -446,7 +447,7 @@ body.intro-active {
 }
 .hero-title-accent {
   display: inline-block;
-  background: linear-gradient(110deg, var(--teal-dark) 0%, var(--teal) 25%, var(--teal-light) 50%, var(--teal) 75%, var(--teal-dark) 100%);
+  background: linear-gradient(110deg, var(--amber-dark) 0%, var(--amber) 25%, var(--amber-light) 50%, var(--amber) 75%, var(--amber-dark) 100%);
   background-size: 300% 100%;
   background-position: 0% 50%;
   -webkit-background-clip: text;
@@ -626,10 +627,14 @@ body.intro-active {
 
 /* ---- STATS BAR ---- */
 .stats-bar {
-  background: linear-gradient(135deg, var(--teal-darker), var(--teal-dark));
+  background:
+    radial-gradient(ellipse at 80% 30%, rgba(244, 184, 96, 0.3), transparent 60%),
+    linear-gradient(135deg, #1A1410 0%, #2B1D10 50%, #3D2817 100%);
   padding: 40px 5vw;
   position: relative;
   overflow: hidden;
+  border-top: 1px solid var(--border-warm);
+  border-bottom: 1px solid var(--border-warm);
 }
 .stats-bar::before {
   content: '';
@@ -674,7 +679,7 @@ body.intro-active {
 .tag {
   display: inline-block;
   font-size: 0.75rem; font-weight: 600;
-  color: var(--teal); letter-spacing: 0.15em;
+  color: var(--amber); letter-spacing: 0.15em;
   text-transform: uppercase; margin-bottom: 12px;
 }
 
@@ -714,7 +719,7 @@ body.intro-active {
   font-weight: 700; margin-bottom: 20px;
 }
 .about-text h2 em {
-  color: var(--teal); font-style: italic;
+  color: var(--amber); font-style: italic;
 }
 .about-text p {
   font-size: 1rem; color: var(--text-light);
@@ -726,9 +731,9 @@ body.intro-active {
 .badge {
   font-size: 0.75rem; font-weight: 600;
   padding: 6px 14px; border-radius: 6px;
-  border: 1px solid var(--teal);
-  color: var(--teal-dark);
-  background: rgba(34, 211, 238,0.05);
+  border: 1px solid var(--border-warm);
+  color: var(--amber);
+  background: rgba(244, 184, 96, 0.06);
 }
 
 /* ---- SERVICES ---- */
@@ -761,9 +766,10 @@ body.intro-active {
 .service-icon {
   width: 56px; height: 56px;
   display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(135deg, rgba(34, 211, 238,0.12), rgba(8, 145, 178,0.12));
+  background: linear-gradient(135deg, rgba(244, 184, 96, 0.18), rgba(217, 127, 63, 0.15));
+  border: 1px solid var(--border-warm);
   border-radius: 12px;
-  color: var(--teal-dark); margin-bottom: 16px;
+  color: var(--amber); margin-bottom: 16px;
 }
 .service-card h3 {
   font-family: var(--font-display);
@@ -795,8 +801,8 @@ body.intro-active {
   content: '';
   position: absolute; left: 28px; top: 28px; bottom: 28px;
   width: 2px;
-  background: linear-gradient(to bottom, var(--teal), var(--teal-dark));
-  opacity: 0.25;
+  background: linear-gradient(to bottom, var(--amber), var(--amber-dark));
+  opacity: 0.35;
 }
 .process-step {
   display: flex; align-items: flex-start; gap: 24px;
@@ -806,12 +812,12 @@ body.intro-active {
 .step-number {
   width: 56px; height: 56px; min-width: 56px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
-  color: #fff;
+  background: linear-gradient(135deg, var(--amber), var(--amber-dark));
+  color: #0A0E1A;
   display: flex; align-items: center; justify-content: center;
   font-family: var(--font-display); font-weight: 800;
   font-size: 1.3rem;
-  box-shadow: 0 6px 16px rgba(34, 211, 238,0.3);
+  box-shadow: 0 6px 20px rgba(244, 184, 96, 0.4);
   position: relative; z-index: 1;
 }
 .step-content {
@@ -902,10 +908,10 @@ body.intro-active {
 }
 .testimonial-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(34, 211, 238,0.3);
+  border-color: var(--border-warm);
 }
 .testimonial-stars {
-  color: var(--teal); font-size: 0.9rem;
+  color: var(--amber); font-size: 0.9rem;
   margin-bottom: 12px; letter-spacing: 2px;
 }
 .testimonial-card p {
@@ -918,8 +924,8 @@ body.intro-active {
 }
 .author-avatar {
   width: 40px; height: 40px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
-  color: #fff;
+  background: linear-gradient(135deg, var(--amber), var(--amber-dark));
+  color: #0A0E1A;
   display: flex; align-items: center; justify-content: center;
   font-family: var(--font-display); font-weight: 700; font-size: 1rem;
 }
@@ -937,7 +943,10 @@ body.intro-active {
 .free-guide-inner {
   max-width: 900px; margin: 0 auto;
   display: flex; align-items: center; gap: 48px;
-  background: linear-gradient(135deg, var(--teal-dark), var(--teal-darker));
+  background:
+    radial-gradient(circle at 80% 30%, rgba(244, 184, 96, 0.45), transparent 60%),
+    linear-gradient(135deg, #2B1D10 0%, #3D2817 100%);
+  border: 1px solid var(--border-warm);
   border-radius: 20px; padding: 48px 56px;
   position: relative; overflow: hidden;
 }
@@ -946,7 +955,7 @@ body.intro-active {
   position: absolute;
   top: -100px; right: -100px;
   width: 300px; height: 300px;
-  background: radial-gradient(circle, rgba(103, 232, 249,0.25), transparent 70%);
+  background: radial-gradient(circle, rgba(252, 210, 153, 0.3), transparent 70%);
   border-radius: 50%;
 }
 .guide-content {
@@ -969,12 +978,12 @@ body.intro-active {
   line-height: 1.7; margin-bottom: 24px;
 }
 .guide-content .btn-primary {
-  background: #fff; color: var(--teal-dark); font-weight: 700;
+  background: #F5F1E8; color: #3D2817; font-weight: 700;
 }
 .guide-content .btn-primary:hover {
-  background: var(--cream);
+  background: #FCD299;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
 }
 .guide-visual {
   color: rgba(255,255,255,0.15);
@@ -985,7 +994,9 @@ body.intro-active {
 /* ---- CLOSING ---- */
 .closing {
   padding: 100px 5vw;
-  background: linear-gradient(135deg, var(--teal-darker), var(--teal-dark));
+  background:
+    radial-gradient(ellipse at 70% 40%, rgba(244, 184, 96, 0.35), transparent 60%),
+    linear-gradient(135deg, #1A1410 0%, #2B1D10 50%, #3D2817 100%);
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -1038,7 +1049,7 @@ body.intro-active {
   position: absolute;
   bottom: -150px; left: 50%; transform: translateX(-50%);
   width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(103, 232, 249,0.2), transparent 70%);
+  background: radial-gradient(circle, rgba(252, 210, 153, 0.25), transparent 70%);
   border-radius: 50%;
   pointer-events: none;
 }
@@ -1071,7 +1082,7 @@ body.intro-active {
   font-size: clamp(2rem, 4vw, 3rem); font-weight: 700;
   margin-bottom: 16px;
 }
-.contact-info h2 em { color: var(--teal); font-style: italic; }
+.contact-info h2 em { color: var(--amber); font-style: italic; }
 .contact-info > p {
   font-size: 1rem; color: var(--text-light);
   line-height: 1.7; margin-bottom: 28px;
