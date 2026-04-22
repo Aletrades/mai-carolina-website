@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20260422-1745">
+  <link rel="stylesheet" href="css/style.css?v=20260422-cutout">
 </head>
 <body>
 
@@ -119,7 +119,6 @@
         <path d="M20 55 L50 28 L80 55 L80 82 L58 82 L58 62 L42 62 L42 82 L20 82 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
         <path d="M15 58 L50 25 L85 58" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
       </svg>
-      <div class="hero-photo-shape"></div>
       <!-- Rotating circular text badge -->
       <div class="photo-badge" aria-hidden="true">
         <svg viewBox="0 0 200 200">
@@ -136,7 +135,10 @@
           </svg>
         </div>
       </div>
-      <img src="images/mai-hero.jpg" alt="Mai Carolina, Realtor®" class="hero-photo" fetchpriority="high" decoding="async">
+      <picture>
+        <source srcset="images/mai-hero.webp" type="image/webp">
+        <img src="images/mai-hero.png" alt="Mai Carolina, Realtor®" class="hero-photo" fetchpriority="high" decoding="async">
+      </picture>
       <div class="hero-floating-card">
         <span class="floating-quote">"Tu sueño es mi misión."</span>
       </div>
@@ -484,6 +486,6 @@
   <script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
-  <script src="js/app.js?v=20260422-1745"></script>
+  <script src="js/app.js?v=20260422-cutout"></script>
 </body>
 </html>

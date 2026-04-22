@@ -550,22 +550,16 @@ body.intro-active {
   background: var(--teal); color: #fff; border-color: var(--teal);
 }
 
-/* Hero photo */
+/* Hero photo — cutout PNG (Mai only, transparent bg) on top of blurred house */
 .hero-photo {
   position: relative; z-index: 2;
-  max-height: 580px; width: auto;
-  border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(8, 145, 178,0.18);
+  max-height: 620px; width: auto;
+  /* Drop shadow tinted with golden-hour glow — makes the cutout feel grounded */
+  filter:
+    drop-shadow(0 12px 30px rgba(0, 0, 0, 0.55))
+    drop-shadow(0 0 40px rgba(244, 184, 96, 0.18));
 }
-.hero-photo-shape {
-  position: absolute;
-  top: 20px; right: 20px;
-  width: 80%; height: 90%;
-  background: linear-gradient(135deg, var(--teal-light), var(--teal));
-  border-radius: 20px;
-  z-index: 1;
-  opacity: 0.9;
-}
+.hero-photo-shape { display: none; }
 
 /* Floating house SVG behind the photo */
 .hero-house-deco {
@@ -1285,7 +1279,7 @@ body.intro-active {
   .hero-social { justify-content: center; gap: 10px; }
   .hero-social a { width: 34px; height: 34px; }
   .hero-right { width: 100%; display: flex; justify-content: center; }
-  .hero-photo { max-height: 210px; max-width: 55%; border-radius: 12px; }
+  .hero-photo { max-height: 240px; max-width: 62%; }
   .hero-photo-shape { display: none; }
   .photo-badge { display: none; }
   .hero-house-deco { display: none; }
