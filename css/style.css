@@ -174,8 +174,20 @@ body {
   50% { box-shadow: 0 0 0 10px rgba(0, 180, 216, 0); }
 }
 
-/* Lock body scroll while intro is showing */
-body.intro-active { overflow: hidden; height: 100vh; }
+/* Lock body scroll while intro is showing — iOS-safe combo */
+html.intro-active,
+body.intro-active {
+  overflow: hidden !important;
+  overscroll-behavior: none;
+  height: 100vh;
+  touch-action: none;
+}
+body.intro-active {
+  position: fixed;
+  width: 100%;
+  top: 0; left: 0;
+}
+.intro-overlay { touch-action: none; }
 
 @media (max-width: 600px) {
   .intro-tagline { bottom: 16%; padding: 0 20px; }

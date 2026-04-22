@@ -19,7 +19,12 @@ function initIntroOverlay() {
   document.getElementById("loader")?.remove();
 
   // Lock page scroll while intro plays — users can't skip past it
+  document.documentElement.classList.add("intro-active");
   document.body.classList.add("intro-active");
+
+  // Stop Lenis smooth scroll during intro (it intercepts wheel/touch events
+  // and would otherwise bypass our scroll lock on mobile).
+  if (typeof lenis !== "undefined" && lenis.stop) lenis.stop();
 
   const video = document.getElementById("intro-video");
   const tagline = overlay.querySelector(".intro-tagline");
@@ -63,9 +68,12 @@ function initIntroOverlay() {
   let finished = false;
   const cleanup = () => {
     // Unlock scroll and remove the scroll-blocking listeners
+    document.documentElement.classList.remove("intro-active");
     document.body.classList.remove("intro-active");
     window.removeEventListener("wheel", blockScroll);
     window.removeEventListener("touchmove", blockScroll);
+    // Resume Lenis smooth scroll now that the user can navigate the site
+    if (typeof lenis !== "undefined" && lenis.start) lenis.start();
   };
   const finish = (fast = false) => {
     if (finished) return;
