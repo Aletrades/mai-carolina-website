@@ -27,20 +27,40 @@ function initIntroOverlay() {
   video.muted = true;
   video.defaultMuted = true;
 
+  // Auto-unmute on first user interaction (browser policy requires a user gesture)
+  const tryUnmute = () => {
+    if (!video.muted) return;
+    video.muted = false;
+    // Fade the volume in so the cut isn't jarring
+    video.volume = 0;
+    let vol = 0;
+    const ramp = setInterval(() => {
+      vol = Math.min(1, vol + 0.1);
+      video.volume = vol;
+      if (vol >= 1) clearInterval(ramp);
+    }, 40);
+  };
+  ["click", "touchstart", "keydown", "wheel", "pointerdown"].forEach((ev) => {
+    window.addEventListener(ev, tryUnmute, { once: true, passive: true });
+  });
+
   let finished = false;
-  const finish = () => {
+  const finish = (fast = false) => {
     if (finished) return;
     finished = true;
     gsap.to(overlay, {
       opacity: 0,
-      duration: 0.8,
+      scale: fast ? 1 : 1.04,
+      duration: fast ? 0.35 : 0.55,
       ease: "power2.inOut",
       onComplete: () => overlay.remove(),
     });
   };
 
-  // Tagline appears during final ~3s of the 7s clip
+  // Pre-schedule the tagline reveal (at ~4s) and the overlay fade-out (at ~6.5s)
+  // so the end transition is smooth — fade starts BEFORE video ends, no visible lag.
   let taglineShown = false;
+  let fadeStarted = false;
   video.addEventListener("timeupdate", () => {
     if (!taglineShown && video.currentTime >= 4) {
       taglineShown = true;
@@ -49,9 +69,23 @@ function initIntroOverlay() {
         { opacity: 1, y: 0, duration: 1, ease: "power3.out" }
       );
     }
+    if (!fadeStarted && video.currentTime >= 6.5) {
+      fadeStarted = true;
+      // Start the overlay fade while the video is still playing its last frames
+      // — by the time video.ended fires, overlay is already mostly gone.
+      finished = true;
+      gsap.to(overlay, {
+        opacity: 0,
+        scale: 1.04,
+        duration: 0.7,
+        ease: "power2.inOut",
+        onComplete: () => overlay.remove(),
+      });
+    }
   });
 
-  video.addEventListener("ended", finish);
+  // Safety catch: if the browser misfires and we never hit 6.5s, still handle ended
+  video.addEventListener("ended", () => finish(true));
 
   // Skip handlers (only fire after video has started — no accidental skip during buffer)
   let playing = false;
