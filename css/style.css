@@ -1144,70 +1144,119 @@ body {
   .nav-links.open { opacity: 1; pointer-events: all; }
   .nav-links a { font-size: 1.1rem; }
 
+  /* Hero — tighter, compact */
   .hero {
     flex-direction: column-reverse;
-    padding: 90px 20px 40px;
+    padding: 72px 18px 28px;
     min-height: auto; text-align: center;
-    gap: 28px;
+    gap: 20px;
   }
-  .hero-wrapper::before { width: 320px; height: 320px; top: -120px; right: -120px; }
+  .hero-wrapper::before { width: 260px; height: 260px; top: -100px; right: -100px; }
   .hero-left { max-width: 100%; }
-  .hero-title { font-size: clamp(2.2rem, 10vw, 3rem); }
-  .hero-subtitle { max-width: 100%; font-size: 1rem; }
-  .hero-actions { justify-content: center; gap: 10px; }
-  .hero-actions .btn { flex: 1; min-width: 0; padding: 13px 16px; font-size: 0.85rem; }
-  .hero-social { justify-content: center; }
-  .hero-photo { max-height: 380px; max-width: 86%; border-radius: 16px; }
+  .hero-title { font-size: clamp(1.9rem, 9vw, 2.6rem); margin-bottom: 14px; }
+  .hero-subtitle { max-width: 100%; font-size: 0.95rem; margin-bottom: 20px; line-height: 1.55; }
+  .hero-badge { font-size: 0.68rem; padding: 6px 12px; margin-bottom: 14px; }
+  .hero-actions { justify-content: center; gap: 8px; margin-bottom: 22px; }
+  .hero-actions .btn { flex: 1; min-width: 0; padding: 11px 14px; font-size: 0.8rem; }
+  .hero-social { justify-content: center; gap: 10px; }
+  .hero-social a { width: 36px; height: 36px; }
+  .hero-photo { max-height: 300px; max-width: 80%; border-radius: 14px; }
   .hero-photo-shape { display: none; }
-  .hero-floating-card { right: 50%; transform: translateX(50%); bottom: -12px; }
+  .hero-floating-card { right: 50%; transform: translateX(50%); bottom: -10px; padding: 10px 16px; max-width: 180px; }
+  .floating-quote { font-size: 0.75rem; }
 
-  .stats-bar { padding: 32px 5vw; }
+  /* Stats — tighter */
+  .stats-bar { padding: 24px 5vw; }
   .stats-inner {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 24px 16px;
+    gap: 18px 12px;
     width: 100%;
   }
   .stat-divider { display: none; }
-  .stat-num { font-size: 2.1rem; }
+  .stat-num { font-size: 1.8rem; }
+  .stat-label { font-size: 0.65rem; }
 
-  .about { padding: 70px 5vw; }
-  .about-inner { flex-direction: column; gap: 32px; }
+  /* About — compact */
+  .about { padding: 48px 5vw; }
+  .about-inner { flex-direction: column; gap: 24px; }
   .about-image::before { display: none; }
-  .about-photo { max-width: 320px; }
+  .about-photo { max-width: 260px; }
   .about-text { text-align: center; }
-  .about-badges { justify-content: center; }
+  .about-text h2 { font-size: 1.7rem; margin-bottom: 14px; }
+  .about-text p { font-size: 0.92rem; margin-bottom: 12px; line-height: 1.65; }
+  .about-badges { justify-content: center; margin-top: 16px; }
+  .badge { font-size: 0.68rem; padding: 5px 11px; }
 
-  .services { padding: 70px 5vw; }
-  .services-inner h2 { margin-bottom: 36px; }
-  .services-grid { grid-template-columns: 1fr; gap: 16px; }
-  .service-card { padding: 28px 22px; }
+  /* Services */
+  .services { padding: 48px 5vw; }
+  .services-inner h2 { margin-bottom: 28px; font-size: 1.7rem; }
+  .services-grid { grid-template-columns: 1fr; gap: 12px; }
+  .service-card { padding: 22px 18px; }
+  .service-card h3 { font-size: 1.05rem; margin-bottom: 6px; }
+  .service-card p { font-size: 0.85rem; }
 
-  .process { padding: 70px 5vw; }
-  .process-steps::before { left: 28px; }
+  /* Process — tighter steps */
+  .process { padding: 48px 5vw; }
+  .process-inner h2 { margin-bottom: 28px; font-size: 1.7rem; }
+  .process-steps::before { left: 24px; top: 20px; bottom: 20px; }
+  .process-step { padding: 14px 0; gap: 18px; }
+  .step-number { width: 48px; height: 48px; min-width: 48px; font-size: 1.15rem; }
+  .step-content { padding-top: 8px; }
+  .step-content h3 { font-size: 1.02rem; }
+  .step-content p { font-size: 0.88rem; line-height: 1.55; }
 
-  .georgia-banner { min-height: 380px; padding: 70px 24px; }
-  .georgia-content h2 { font-size: 1.8rem; }
+  /* Marquee — shorter */
+  .marquee { padding: 14px 0; }
+  .marquee-track span { font-size: 1.1rem; }
 
-  .testimonials { padding: 70px 5vw; }
-  .testimonials-grid { grid-template-columns: 1fr; gap: 16px; }
+  /* Georgia banner */
+  .georgia-banner { min-height: 300px; padding: 56px 22px; }
+  .georgia-content h2 { font-size: 1.6rem; margin-bottom: 12px; }
+  .georgia-content p { font-size: 0.95rem; margin-bottom: 20px; }
 
-  .free-guide { padding: 60px 5vw; }
-  .free-guide-inner { flex-direction: column; padding: 32px 24px; text-align: center; }
+  /* Testimonials */
+  .testimonials { padding: 48px 5vw; }
+  .testimonials-inner h2 { margin-bottom: 28px; font-size: 1.7rem; }
+  .testimonials-grid { grid-template-columns: 1fr; gap: 12px; }
+  .testimonial-card { padding: 22px; }
+  .testimonial-card p { font-size: 0.9rem; }
+
+  /* Free guide */
+  .free-guide { padding: 40px 5vw; }
+  .free-guide-inner { flex-direction: column; padding: 26px 20px; text-align: center; }
+  .guide-content h2 { font-size: 1.35rem; }
+  .guide-content p { font-size: 0.92rem; }
   .guide-visual { display: none; }
 
-  .closing { padding: 70px 5vw; }
+  /* Closing */
+  .closing { padding: 56px 5vw; min-height: 340px; }
+  .closing h2 { font-size: 1.55rem; }
 
-  .contact { padding: 70px 5vw; }
-  .contact-inner { flex-direction: column; gap: 32px; }
+  /* Contact — tight */
+  .contact { padding: 48px 5vw; }
+  .contact-inner { flex-direction: column; gap: 24px; }
   .contact-info { text-align: center; }
-  .contact-info h2 { font-size: 2rem; }
-  .contact-details { align-items: flex-start; text-align: left; }
+  .contact-info h2 { font-size: 1.75rem; margin-bottom: 10px; }
+  .contact-info > p { font-size: 0.92rem; margin-bottom: 20px; }
+  .contact-details { align-items: flex-start; text-align: left; gap: 12px; }
+  .contact-item { font-size: 0.9rem; }
+  .contact-form input,
+  .contact-form select,
+  .contact-form textarea { padding: 12px 16px; font-size: 0.9rem; }
+  .contact-form textarea { min-height: 90px; }
 
-  .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+  /* Footer */
+  .footer { padding: 32px 5vw 0; }
+  .footer-inner { flex-direction: column; gap: 14px; text-align: center; padding-bottom: 18px; }
+  .footer-bottom { padding: 14px 0; }
 
-  .floating-cta { width: 48px; height: 48px; bottom: 20px; right: 20px; }
-  .floating-cta svg { width: 20px; height: 20px; }
+  /* Floating CTA */
+  .floating-cta { width: 44px; height: 44px; bottom: 16px; right: 16px; }
+  .floating-cta svg { width: 18px; height: 18px; }
+
+  /* Reduce the tagline in the rotating photo badge on mobile */
+  .marquee-track span { letter-spacing: 0.02em; }
 }
 
 /* ---- SMALL PHONES ---- */

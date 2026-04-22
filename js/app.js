@@ -75,18 +75,28 @@ function initIntroOverlay() {
     });
   };
 
-  // Use canplaythrough for smoothest playback (video is fully buffered)
+  // Start playback once video is ready. If it's already cached/buffered, fire immediately.
   let started = false;
   const onReady = () => {
     if (started) return;
     started = true;
     startPlayback();
   };
-  video.addEventListener("canplaythrough", onReady, { once: true });
 
-  // Fallback: if canplaythrough hasn't fired in 2s but we have enough data to play, just start
+  // Critical: on a cached refresh, readyState may already be 4 before we attach listeners
+  if (video.readyState >= 4) {
+    onReady();
+  } else {
+    video.addEventListener("canplaythrough", onReady, { once: true });
+    video.addEventListener("loadeddata", () => {
+      // Also kick off if loadeddata fires but canplaythrough doesn't within 1s
+      setTimeout(() => { if (!started && video.readyState >= 3) onReady(); }, 1000);
+    }, { once: true });
+  }
+
+  // Fallback: 2s cap on the buffer wait
   setTimeout(() => {
-    if (!started && video.readyState >= 3) onReady();
+    if (!started && video.readyState >= 2) onReady();
   }, 2000);
 
   // Safety bail: 7s with no playable data at all → skip to hero
