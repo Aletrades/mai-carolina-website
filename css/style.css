@@ -326,10 +326,30 @@ body.intro-active {
   background:
     radial-gradient(ellipse at 80% 15%, rgba(244, 184, 96, 0.22), transparent 55%),
     radial-gradient(ellipse at 15% 85%, rgba(217, 127, 63, 0.14), transparent 60%),
-    radial-gradient(ellipse at 100% 100%, rgba(34, 211, 238, 0.06), transparent 70%),
     linear-gradient(180deg, #0A0E1A 0%, #1A1410 100%);
   position: relative;
   overflow: hidden;
+}
+
+/* Blurred modern-home backdrop behind the hero */
+.hero-bg-house {
+  position: absolute;
+  inset: -40px;
+  background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80');
+  background-size: cover;
+  background-position: center;
+  filter: blur(28px) brightness(0.5) saturate(0.9);
+  opacity: 0.45;
+  transform: scale(1.08);
+  z-index: 0;
+  pointer-events: none;
+}
+.hero-bg-house::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 80% 15%, rgba(244, 184, 96, 0.18), transparent 60%),
+              linear-gradient(180deg, rgba(10, 14, 26, 0.55) 0%, rgba(26, 20, 16, 0.7) 100%);
 }
 .hero-wrapper::before {
   content: '';
@@ -442,9 +462,10 @@ body.intro-active {
 .hero-title {
   font-family: var(--font-display);
   font-size: clamp(2.8rem, 5vw, 4.2rem);
-  font-weight: 800; line-height: 1.15;
+  font-weight: 800; line-height: 1.02;
   color: var(--text); margin-bottom: 20px;
 }
+.hero-title br { line-height: 1; }
 .hero-title-accent {
   display: inline-block;
   background: linear-gradient(110deg, var(--amber-dark) 0%, var(--amber) 25%, var(--amber-light) 50%, var(--amber) 75%, var(--amber-dark) 100%);
@@ -466,16 +487,12 @@ body.intro-active {
 .split-char {
   display: inline-block;
   line-height: 1;
-  vertical-align: baseline;
+  vertical-align: top;
   will-change: transform, opacity;
 }
 .split-char.space {
   display: inline-block;
   width: 0.28em;
-}
-.hero-line {
-  display: block;
-  line-height: 1.05;
 }
 
 /* Cursor glow */
@@ -1231,48 +1248,53 @@ body.intro-active {
   .nav-links.open { opacity: 1; pointer-events: all; }
   .nav-links a { font-size: 1.1rem; }
 
-  /* Hero — tight one-viewport fit */
+  /* Hero — tight one-viewport fit on mobile */
   .hero {
     flex-direction: column-reverse;
-    padding: 60px 16px 20px;
-    min-height: auto; text-align: center;
-    gap: 14px;
+    padding: 70px 16px 16px;
+    min-height: 100vh;
+    min-height: 100svh;  /* use small-viewport units on iOS so toolbar doesn't crop */
+    text-align: center;
+    gap: 12px;
+    justify-content: center;
   }
   .hero-wrapper::before { width: 240px; height: 240px; top: -90px; right: -90px; }
   .hero-left { max-width: 100%; }
   .hero-title {
-    font-size: clamp(1.8rem, 8vw, 2.2rem);
-    line-height: 1 !important;
+    font-size: clamp(1.75rem, 8vw, 2.1rem);
+    line-height: 0.98 !important;
     margin-bottom: 10px;
   }
-  .hero-line {
-    line-height: 1 !important;
-    margin: 0 !important;
-    padding: 0 !important;
+  .hero-title br { line-height: 0.98; }
+  .hero-title-accent { line-height: 0.98 !important; display: inline-block; }
+  .split-char {
+    line-height: 0.98 !important;
+    vertical-align: top !important;
   }
-  .hero-title-accent { line-height: 1 !important; }
-  .split-char { line-height: 1 !important; vertical-align: top !important; }
   .hero-subtitle {
-    max-width: 100%; font-size: 0.9rem;
-    margin-bottom: 16px; line-height: 1.5;
+    max-width: 100%; font-size: 0.85rem;
+    margin-bottom: 14px; line-height: 1.45;
   }
-  .hero-badge { font-size: 0.66rem; padding: 5px 11px; margin-bottom: 10px; }
+  .hero-badge {
+    font-size: 0.62rem; padding: 5px 10px;
+    margin-bottom: 8px; gap: 6px;
+  }
   .hero-badge-dot { width: 6px; height: 6px; }
-  .hero-actions { justify-content: center; gap: 8px; margin-bottom: 16px; }
+  .hero-actions { justify-content: center; gap: 8px; margin-bottom: 12px; }
   .hero-actions .btn { flex: 1; min-width: 0; padding: 10px 12px; font-size: 0.78rem; }
   .hero-social { justify-content: center; gap: 10px; }
   .hero-social a { width: 34px; height: 34px; }
   .hero-right { width: 100%; display: flex; justify-content: center; }
-  .hero-photo { max-height: 260px; max-width: 68%; border-radius: 12px; }
+  .hero-photo { max-height: 210px; max-width: 55%; border-radius: 12px; }
   .hero-photo-shape { display: none; }
-  /* Hide the busy rotating house badge on phones — decorative, crowds the photo */
   .photo-badge { display: none; }
   .hero-house-deco { display: none; }
   .hero-floating-card {
     right: 50%; transform: translateX(50%); bottom: -8px;
-    padding: 8px 14px; max-width: 170px;
+    padding: 7px 12px; max-width: 160px;
   }
-  .floating-quote { font-size: 0.72rem; }
+  .floating-quote { font-size: 0.7rem; }
+  .hero-bg-house { filter: blur(20px) brightness(0.45) saturate(0.9); opacity: 0.5; }
 
   /* Stats — tighter */
   .stats-bar { padding: 24px 5vw; }
