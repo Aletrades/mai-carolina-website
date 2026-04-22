@@ -1242,15 +1242,15 @@ body.intro-active {
   .nav-links.open { opacity: 1; pointer-events: all; }
   .nav-links a { font-size: 1.1rem; }
 
-  /* Hero — tight one-viewport fit on mobile */
+  /* Hero — tight one-viewport fit on mobile, content hugged to the top */
   .hero {
     flex-direction: column-reverse;
-    padding: 70px 16px 16px;
+    padding: 64px 16px 16px;
     min-height: 100vh;
-    min-height: 100svh;  /* use small-viewport units on iOS so toolbar doesn't crop */
+    min-height: 100svh;
     text-align: center;
-    gap: 12px;
-    justify-content: center;
+    gap: 8px;
+    justify-content: flex-start;
   }
   .hero-wrapper::before { width: 240px; height: 240px; top: -90px; right: -90px; }
   .hero-left { max-width: 100%; }
