@@ -531,7 +531,17 @@ function initAnchors() {
       const target = document.querySelector(a.getAttribute("href"));
       if (target) {
         e.preventDefault();
-        lenis.scrollTo(target, { offset: -80 });
+        // Reveal sections that are hidden by default (e.g. About)
+        if (!target.classList.contains("revealed")) {
+          target.classList.add("revealed");
+          // Let the browser render the now-visible element before scrolling,
+          // otherwise lenis measures height as 0 and scroll position is wrong
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => lenis.scrollTo(target, { offset: -80 }));
+          });
+        } else {
+          lenis.scrollTo(target, { offset: -80 });
+        }
       }
     });
   });
