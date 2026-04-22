@@ -1169,26 +1169,48 @@ body.intro-active {
   .nav-links.open { opacity: 1; pointer-events: all; }
   .nav-links a { font-size: 1.1rem; }
 
-  /* Hero — tighter, compact */
+  /* Hero — tight one-viewport fit */
   .hero {
     flex-direction: column-reverse;
-    padding: 72px 18px 28px;
+    padding: 60px 16px 20px;
     min-height: auto; text-align: center;
-    gap: 20px;
+    gap: 14px;
   }
-  .hero-wrapper::before { width: 260px; height: 260px; top: -100px; right: -100px; }
+  .hero-wrapper::before { width: 240px; height: 240px; top: -90px; right: -90px; }
   .hero-left { max-width: 100%; }
-  .hero-title { font-size: clamp(1.9rem, 9vw, 2.6rem); margin-bottom: 14px; }
-  .hero-subtitle { max-width: 100%; font-size: 0.95rem; margin-bottom: 20px; line-height: 1.55; }
-  .hero-badge { font-size: 0.68rem; padding: 6px 12px; margin-bottom: 14px; }
-  .hero-actions { justify-content: center; gap: 8px; margin-bottom: 22px; }
-  .hero-actions .btn { flex: 1; min-width: 0; padding: 11px 14px; font-size: 0.8rem; }
+  .hero-title {
+    font-size: clamp(1.8rem, 8vw, 2.2rem);
+    line-height: 1 !important;
+    margin-bottom: 10px;
+  }
+  .hero-line {
+    line-height: 1 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .hero-title-accent { line-height: 1 !important; }
+  .split-char { line-height: 1 !important; vertical-align: top !important; }
+  .hero-subtitle {
+    max-width: 100%; font-size: 0.9rem;
+    margin-bottom: 16px; line-height: 1.5;
+  }
+  .hero-badge { font-size: 0.66rem; padding: 5px 11px; margin-bottom: 10px; }
+  .hero-badge-dot { width: 6px; height: 6px; }
+  .hero-actions { justify-content: center; gap: 8px; margin-bottom: 16px; }
+  .hero-actions .btn { flex: 1; min-width: 0; padding: 10px 12px; font-size: 0.78rem; }
   .hero-social { justify-content: center; gap: 10px; }
-  .hero-social a { width: 36px; height: 36px; }
-  .hero-photo { max-height: 300px; max-width: 80%; border-radius: 14px; }
+  .hero-social a { width: 34px; height: 34px; }
+  .hero-right { width: 100%; display: flex; justify-content: center; }
+  .hero-photo { max-height: 260px; max-width: 68%; border-radius: 12px; }
   .hero-photo-shape { display: none; }
-  .hero-floating-card { right: 50%; transform: translateX(50%); bottom: -10px; padding: 10px 16px; max-width: 180px; }
-  .floating-quote { font-size: 0.75rem; }
+  /* Hide the busy rotating house badge on phones — decorative, crowds the photo */
+  .photo-badge { display: none; }
+  .hero-house-deco { display: none; }
+  .hero-floating-card {
+    right: 50%; transform: translateX(50%); bottom: -8px;
+    padding: 8px 14px; max-width: 170px;
+  }
+  .floating-quote { font-size: 0.72rem; }
 
   /* Stats — tighter */
   .stats-bar { padding: 24px 5vw; }
