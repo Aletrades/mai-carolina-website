@@ -18,19 +18,24 @@ function initIntroOverlay() {
   // Kill the static loader — intro replaces it
   document.getElementById("loader")?.remove();
 
+  // Lock page scroll while intro plays — users can't skip past it
+  document.body.classList.add("intro-active");
+
   const video = document.getElementById("intro-video");
   const tagline = overlay.querySelector(".intro-tagline");
   const loading = document.getElementById("intro-loading");
   const tapplay = document.getElementById("intro-tapplay");
+  const soundHint = document.getElementById("intro-sound-hint");
 
   // Belt-and-suspenders: ensure muted is set before play() is called (required for iOS autoplay)
   video.muted = true;
   video.defaultMuted = true;
 
-  // Auto-unmute on first user interaction (browser policy requires a user gesture)
+  // Auto-unmute on first user interaction + hide the sound hint
   const tryUnmute = () => {
     if (!video.muted) return;
     video.muted = false;
+    soundHint?.classList.add("gone");
     // Fade the volume in so the cut isn't jarring
     video.volume = 0;
     let vol = 0;
@@ -40,11 +45,28 @@ function initIntroOverlay() {
       if (vol >= 1) clearInterval(ramp);
     }, 40);
   };
-  ["click", "touchstart", "keydown", "wheel", "pointerdown"].forEach((ev) => {
+  ["click", "touchstart", "keydown", "pointerdown"].forEach((ev) => {
     window.addEventListener(ev, tryUnmute, { once: true, passive: true });
   });
 
+  // Block scrolling attempts while intro is active — no skip, users must watch
+  const blockScroll = (e) => { e.preventDefault(); };
+  window.addEventListener("wheel", blockScroll, { passive: false });
+  window.addEventListener("touchmove", blockScroll, { passive: false });
+  window.addEventListener("keydown", (e) => {
+    // Block keys that scroll: space, arrows, page up/down, home, end
+    const blocked = [" ", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight",
+                     "PageUp", "PageDown", "Home", "End"];
+    if (blocked.includes(e.key)) e.preventDefault();
+  }, { once: false });
+
   let finished = false;
+  const cleanup = () => {
+    // Unlock scroll and remove the scroll-blocking listeners
+    document.body.classList.remove("intro-active");
+    window.removeEventListener("wheel", blockScroll);
+    window.removeEventListener("touchmove", blockScroll);
+  };
   const finish = (fast = false) => {
     if (finished) return;
     finished = true;
@@ -53,7 +75,7 @@ function initIntroOverlay() {
       scale: fast ? 1 : 1.04,
       duration: fast ? 0.35 : 0.55,
       ease: "power2.inOut",
-      onComplete: () => overlay.remove(),
+      onComplete: () => { overlay.remove(); cleanup(); },
     });
   };
 
@@ -79,7 +101,7 @@ function initIntroOverlay() {
         scale: 1.04,
         duration: 0.7,
         ease: "power2.inOut",
-        onComplete: () => overlay.remove(),
+        onComplete: () => { overlay.remove(); cleanup(); },
       });
     }
   });
@@ -87,24 +109,16 @@ function initIntroOverlay() {
   // Safety catch: if the browser misfires and we never hit 6.5s, still handle ended
   video.addEventListener("ended", () => finish(true));
 
-  // Skip handlers (only fire after video has started — no accidental skip during buffer)
-  let playing = false;
-  const skip = () => { if (playing) finish(); };
-  overlay.querySelector(".intro-skip")?.addEventListener("click", finish);
-  window.addEventListener("wheel", skip, { passive: true });
-  window.addEventListener("touchmove", skip, { passive: true });
-
   // Wait until the video can play through without re-buffering, THEN reveal + play
   const startPlayback = () => {
     loading?.classList.add("hidden");
     video.classList.add("ready");
-    playing = true;
     video.play().catch(() => {
       // Autoplay blocked — show tap-to-play fallback
       tapplay.hidden = false;
       tapplay.querySelector(".intro-tapplay-btn").addEventListener("click", () => {
         tapplay.hidden = true;
-        video.play().then(() => { playing = true; }).catch(finish);
+        video.play().catch(() => finish(true));
       }, { once: true });
     });
   };
