@@ -1245,19 +1245,19 @@ body.intro-active {
   /* Hero — tight one-viewport fit on mobile, content hugged to the top */
   .hero {
     flex-direction: column-reverse;
-    padding: 64px 16px 16px;
+    padding: 56px 16px 12px;
     min-height: 100vh;
     min-height: 100svh;
     text-align: center;
-    gap: 8px;
+    gap: 6px;
     justify-content: flex-start;
   }
   .hero-wrapper::before { width: 240px; height: 240px; top: -90px; right: -90px; }
   .hero-left { max-width: 100%; }
   .hero-title {
-    font-size: clamp(1.75rem, 8vw, 2.1rem);
+    font-size: clamp(1.55rem, 7vw, 1.85rem);
     line-height: 0.98 !important;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
   }
   .hero-title br { line-height: 0.98; }
   .hero-title-accent { line-height: 0.98 !important; display: inline-block; }
@@ -1266,20 +1266,20 @@ body.intro-active {
     vertical-align: top !important;
   }
   .hero-subtitle {
-    max-width: 100%; font-size: 0.85rem;
-    margin-bottom: 14px; line-height: 1.45;
+    max-width: 100%; font-size: 0.78rem;
+    margin-bottom: 10px; line-height: 1.4;
   }
   .hero-badge {
     font-size: 0.62rem; padding: 5px 10px;
     margin-bottom: 8px; gap: 6px;
   }
   .hero-badge-dot { width: 6px; height: 6px; }
-  .hero-actions { justify-content: center; gap: 8px; margin-bottom: 12px; }
+  .hero-actions { justify-content: center; gap: 8px; margin-bottom: 10px; }
   .hero-actions .btn { flex: 1; min-width: 0; padding: 10px 12px; font-size: 0.78rem; }
   .hero-social { justify-content: center; gap: 10px; }
-  .hero-social a { width: 34px; height: 34px; }
-  .hero-right { width: 100%; display: flex; justify-content: center; }
-  .hero-photo { max-height: 420px; max-width: 88%; }
+  .hero-social a { width: 32px; height: 32px; }
+  .hero-right { width: 100%; display: flex; justify-content: center; margin-bottom: -8px; }
+  .hero-photo { max-height: 320px; max-width: 72%; }
   .hero-photo-shape { display: none; }
   .photo-badge { display: none; }
   .hero-house-deco { display: none; }
@@ -1358,18 +1358,36 @@ body.intro-active {
   .closing { padding: 56px 5vw; min-height: 340px; }
   .closing h2 { font-size: 1.55rem; }
 
-  /* Contact — tight */
-  .contact { padding: 48px 5vw; }
-  .contact-inner { flex-direction: column; gap: 24px; }
+  /* Contact — full-width edge-to-edge on mobile */
+  .contact { padding: 48px 18px; }
+  .contact-inner {
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+  }
+  .contact-info,
+  .contact-form-wrap { width: 100%; flex: 1 1 100%; }
   .contact-info { text-align: center; }
   .contact-info h2 { font-size: 1.75rem; margin-bottom: 10px; }
   .contact-info > p { font-size: 0.92rem; margin-bottom: 20px; }
-  .contact-details { align-items: flex-start; text-align: left; gap: 12px; }
+  .contact-details {
+    align-items: stretch;
+    text-align: left;
+    gap: 12px;
+    width: 100%;
+  }
   .contact-item { font-size: 0.9rem; }
+  .contact-form { width: 100%; }
   .contact-form input,
   .contact-form select,
-  .contact-form textarea { padding: 12px 16px; font-size: 0.9rem; }
-  .contact-form textarea { min-height: 90px; }
+  .contact-form textarea {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 0.95rem;
+  }
+  .contact-form textarea { min-height: 100px; }
 
   /* Footer */
   .footer { padding: 32px 5vw 0; }
