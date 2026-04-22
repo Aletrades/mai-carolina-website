@@ -10,6 +10,69 @@ const CONFIG = {
   accent: "#00B4D8",
 };
 
+// ---- Intro overlay ----
+function initIntroOverlay() {
+  const overlay = document.getElementById("intro-overlay");
+  if (!overlay) return;
+
+  // Already seen this session → remove immediately, let normal loader run
+  if (sessionStorage.getItem("introSeen") === "1") {
+    overlay.remove();
+    return;
+  }
+
+  // Intro is showing — kill the static loader (intro replaces it)
+  document.getElementById("loader")?.remove();
+
+  const video = document.getElementById("intro-video");
+  const tagline = overlay.querySelector(".intro-tagline");
+
+  let finished = false;
+  const finish = () => {
+    if (finished) return;
+    finished = true;
+    sessionStorage.setItem("introSeen", "1");
+    gsap.to(overlay, {
+      opacity: 0,
+      duration: 0.8,
+      ease: "power2.inOut",
+      onComplete: () => overlay.remove(),
+    });
+  };
+
+  // Show tagline for the last ~3 seconds of the 7s clip (Jackson Bridge skyline hold)
+  let taglineShown = false;
+  video.addEventListener("timeupdate", () => {
+    if (!taglineShown && video.currentTime >= 4) {
+      taglineShown = true;
+      gsap.fromTo(tagline,
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 1, ease: "power3.out" }
+      );
+    }
+  });
+
+  // End of video → fade overlay out
+  video.addEventListener("ended", finish);
+
+  // Skip handlers
+  overlay.querySelector(".intro-skip")?.addEventListener("click", finish);
+  const skipOnScroll = () => finish();
+  window.addEventListener("wheel", skipOnScroll, { passive: true, once: true });
+  window.addEventListener("touchmove", skipOnScroll, { passive: true, once: true });
+
+  // Nudge autoplay on iOS
+  video.play().catch(() => {
+    setTimeout(() => video.play().catch(() => {}), 400);
+  });
+
+  // Safety: if video hasn't loaded after 6s, bail gracefully
+  const safety = setTimeout(() => {
+    if (video.readyState < 2) finish();
+  }, 6000);
+  video.addEventListener("loadeddata", () => clearTimeout(safety));
+}
+
 // ---- Lenis Smooth Scroll ----
 const lenis = new Lenis({
   duration: 1.1,
@@ -403,6 +466,7 @@ function initHamburger() {
 
 // ---- Init ----
 document.addEventListener("DOMContentLoaded", () => {
+  initIntroOverlay();
   initLoader();
   initHeader();
   initHero();
