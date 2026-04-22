@@ -275,7 +275,7 @@ body.intro-active {
   font-size: 1.4rem; font-weight: 700; color: var(--text);
   text-decoration: none;
 }
-.logo span { color: var(--teal); }
+.logo span { color: var(--amber); }
 .nav-links { display: flex; gap: 28px; }
 .nav-links a {
   font-size: 0.85rem; font-weight: 500; color: var(--text-light);
